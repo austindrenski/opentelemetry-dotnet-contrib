@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- OmniSharp/VS Code requires TargetFrameworks to be in descending order for IntelliSense and analysis. -->
+    <TargetFrameworks>$(NetMinimumSupportedVersion);$(NetStandardMinimumSupportedVersion)</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);$(NetFrameworkMinimumSupportedVersion)</TargetFrameworks>
+    <Description>OpenTelemetry Resource Detectors for Version Control System (VCS) attributes.</Description>
+    <MinVerTagPrefix>Resources.AssemblyMetadata.Vcs-</MinVerTagPrefix>
+  </PropertyGroup>
+
+  <!-- Do not run Package Baseline Validation as this package has never released a stable version.
+  Remove this property once we have released a stable version and add PackageValidationBaselineVersion property. -->
+  <PropertyGroup>
+    <DisablePackageBaselineValidation>true</DisablePackageBaselineValidation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(RepoRoot)\src\OpenTelemetry.SemanticConventions\Attributes\VcsAttributes.cs" LinkBase="Includes" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="_.targets" Pack="true" PackagePath="buildTransitive\$(TargetFramework)\$(AssemblyName).targets" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(RepoRoot)\src\OpenTelemetry.Resources.AssemblyMetadata\OpenTelemetry.Resources.AssemblyMetadata.csproj" />
+  </ItemGroup>
+
+</Project>

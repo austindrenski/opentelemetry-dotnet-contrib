@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- OmniSharp/VS Code requires TargetFrameworks to be in descending order for IntelliSense and analysis. -->
+    <TargetFrameworks>$(SupportedNetTargets)</TargetFrameworks>
+    <TargetFrameworks Condition="$(OS) == 'Windows_NT'">$(TargetFrameworks);$(NetFrameworkMinimumSupportedVersion)</TargetFrameworks>
+    <Description>Unit test project for Assembly Metadata Detector for OpenTelemetry VCS attributes.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(RepoRoot)\src\OpenTelemetry.SemanticConventions\Attributes\VcsAttributes.cs" LinkBase="Includes" />
+    <Compile Include="$(RepoRoot)\test\Shared\SkipUnlessEnvVarFoundFactAttribute.cs" LinkBase="Includes" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(RepoRoot)\src\OpenTelemetry.Resources.AssemblyMetadata.Vcs\OpenTelemetry.Resources.AssemblyMetadata.Vcs.csproj" />
+  </ItemGroup>
+
+  <Import Project="$(RepoRoot)\src\OpenTelemetry.Resources.AssemblyMetadata.Vcs\_.targets" />
+
+</Project>
